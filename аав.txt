@@ -1,0 +1,20 @@
+# Обработчик команды /start
+@dp.message_handler(commands=['start'])
+async def start_command(message: types.Message):
+    if not is_user_allowed(message.from_user.username):
+        await message.answer("У вас нет доступа к этому боту!")
+        return
+    start_message = (
+        "Привет! Этот бот позволяет публиковать посты в канале. "
+        "Чтобы опубликовать пост, отправьте мне данные в формате JSON со следующими полями:\n"
+        "- photo: URL изображения\n"
+        "- text: Текст поста\n"
+        "- link: URL, который будет прикреплен к кнопке 'Подробнее'\n\n"
+        "Пример:\n"
+        "{\n"
+        '  "photo": "http://example.com/image.jpg",\n'
+        '  "text": "Здесь текст сообщения",\n'
+        '  "link": "http://example.com"\n'
+        "}"
+    )
+    await message.answer(start_message)
